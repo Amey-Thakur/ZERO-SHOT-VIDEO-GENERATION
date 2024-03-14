@@ -6,6 +6,17 @@
 
 ---
 
+>**Machine Learning Project**
+
+  - [Project Proposal](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation%20-%20Project%20Proposal.pdf)
+  
+  - [Project Presentation](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation.pdf)
+  
+  - [Project Demo]()
+  
+  - [Report](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation%20Project%20Report.pdf)
+
+
 ## Introduction
 The Zero-Shot Video Generation ML Project is an innovative solution for transforming text into dynamic video content. This README guides you through setting up and running the project on your local machine.
 

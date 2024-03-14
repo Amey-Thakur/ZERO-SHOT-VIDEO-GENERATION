@@ -1,5 +1,11 @@
 # ZERO-SHOT-VIDEO-GENERATION
 
+ 👍🏻 GENG8900: ML - Project [SEMESTER II]
+ 
+ - [X] **GENG8900: [ML](https://github.com/Amey-Thakur/MACHINE--LEARNING)**
+
+---
+
 ## Introduction
 The Zero-Shot Video Generation ML Project is an innovative solution for transforming text into dynamic video content. This README guides you through setting up and running the project on your local machine.
 
@@ -44,3 +50,12 @@ Review the generated video displayed on the webpage directly in the browser.
 
 ## Conclusion
 Enjoy transforming text into videos with ease and efficiency! For further details, refer to the project documentation.
+
+---
+
+<p align="center"> <b> 👉🏻 Presented as a part of the 3rd Semester Project @ University of Windsor 👈🏻 <b> </p>
+
+<p align="center"> <b> 👷 Project Authors: Amey Thakur, Jithin Gijo and Ritika Agarwal (Batch of 2024) <b> </p>
+ 
+<p align="center"><a href='https://github.com/Amey-Thakur/MENG-COMPUTER-ENGINEERING', style='color: greenyellow;'> ✌🏻 Back To Engineering ✌🏻</p>
+

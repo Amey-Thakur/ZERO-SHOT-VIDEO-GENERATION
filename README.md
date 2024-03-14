@@ -1,6 +1,6 @@
 # ZERO-SHOT-VIDEO-GENERATION
 
- 👍🏻 GENG8900: ML - Project [SEMESTER II]
+ 👍🏻 ELEC8900: ML - Project [SEMESTER II]
  
  - [X] **GENG8900: [ML](https://github.com/Amey-Thakur/MACHINE--LEARNING)**
 

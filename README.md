@@ -12,7 +12,7 @@
   
   - [Project Presentation](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation.pdf)
   
-  - [Project Demo]()
+  - [Project Demo](https://youtu.be/za9hId6UPoY)
   
   - [Report](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation%20Project%20Report.pdf)
 

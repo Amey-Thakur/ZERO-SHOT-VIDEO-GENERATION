@@ -1,0 +1,43 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "name": "Zero-Shot Video Generation",
+    "description": "A Zero-Shot Video Generation system developed as a 3rd-Semester Project for the MEng Computer Engineering program. This implementation utilizes PyTorch, Stable Diffusion, and Gradio to transform text prompts into dynamic video content without video-specific training.",
+    "identifier": "ZERO-SHOT-VIDEO-GENERATION",
+    "license": "https://spdx.org/licenses/MIT.html",
+    "programmingLanguage": [
+        "Python",
+        "CSS"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "givenName": "Amey",
+            "familyName": "Thakur",
+            "id": "https://orcid.org/0000-0001-5644-1575",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "University of Windsor"
+            }
+        }
+    ],
+    "dateReleased": "2023-11-22",
+    "codeRepository": "https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION",
+    "developmentStatus": "complete",
+    "runtimePlatform": [
+        "Python 3.8+",
+        "PyTorch",
+        "CUDA"
+    ],
+    "applicationCategory": "Machine Learning",
+    "keywords": [
+        "Zero-Shot Video Generation",
+        "Text-to-Video",
+        "Machine Learning",
+        "Stable Diffusion",
+        "PyTorch",
+        "Gradio",
+        "Computer Vision",
+        "MEng Computer Engineering"
+    ]
+}

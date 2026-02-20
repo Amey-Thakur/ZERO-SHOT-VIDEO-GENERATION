@@ -1,0 +1,27 @@
+# ZERO-SHOT-VIDEO-GENERATION - Academic Repository
+# Professional .gitattributes for scholarly archiving
+
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Ensure source and documentation files use LF on checkout
+*.md text eol=lf diff=markdown
+*.py text eol=lf
+*.txt text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.css text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+# Explicitly mark binary files to prevent corruption and optimize diffs
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.docx binary
+*.pptx binary
+*.mp4 binary
+
+# Improve diff handling
+*.md text diff=markdown

@@ -1,0 +1,55 @@
+# ZERO-SHOT-VIDEO-GENERATION - Academic Repository
+# Specialized .gitignore for Python development and scholarly archiving
+
+# OS-generated files
+[Tt]humbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# Editor and IDE configuration
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python-specific patterns
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+
+# Temporary and Output files
+*.tmp
+*.log
+*.bak
+*.sav
+*.old
+temporal/
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z

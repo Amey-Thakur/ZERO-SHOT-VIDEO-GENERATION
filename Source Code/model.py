@@ -80,12 +80,16 @@ class Model:
         if not hasattr(self, "pipe") or self.pipe is None:
             return
 
-        prompt = kwargs.pop('prompt')
+        prompt = kwargs.pop('prompt', '')
+        if prompt is None:
+            prompt = ''
         if isinstance(prompt, str):
             prompt = [prompt] * kwargs.get('video_length', len(frame_ids))
         prompt = np.array(prompt)
 
         negative_prompt = kwargs.pop('negative_prompt', '')
+        if negative_prompt is None:
+            negative_prompt = ''
         if isinstance(negative_prompt, str):
             negative_prompt = [negative_prompt] * kwargs.get('video_length', len(frame_ids))
         negative_prompt = np.array(negative_prompt)

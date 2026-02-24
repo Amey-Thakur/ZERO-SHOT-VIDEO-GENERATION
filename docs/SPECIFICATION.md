@@ -46,4 +46,4 @@ graph TD
 
 ---
 
-*Technical Specification | Master of Engineering (M.Eng) Project | Version 1.0*
+*Technical Specification | MEng Computer Engineering Project | Version 1.0*

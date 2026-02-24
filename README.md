@@ -271,6 +271,8 @@ Grateful acknowledgment to **Jason Horn**, **[Writing Support Desk](https://gith
 
 Special thanks to the research team behind **Text2Video-Zero** (Picsart AI Research, UT Austin, U of Oregon, UIUC) for the foundational research and open-source implementation, which served as the cornerstone for this project's technical architecture.
 
+---
+
 <!-- FOOTER SECTION -->
 <div align="center">
 

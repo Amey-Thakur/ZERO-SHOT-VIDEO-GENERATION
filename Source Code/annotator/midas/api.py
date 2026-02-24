@@ -90,8 +90,7 @@ def load_model(model_type):
 
     elif model_type == "dpt_hybrid":  # DPT-Hybrid
         if not os.path.exists(model_path):
-            from basicsr.utils.download_util import load_file_from_url
-            load_file_from_url(remote_model_path, model_dir=annotator_ckpts_path)
+            raise FileNotFoundError(f"MiDaS DPT Hybrid model not found at {model_path}. Please ensure dpt_hybrid-midas-501f0c75.pt is present in annotator/ckpts/.")
 
         model = DPTDepthModel(
             path=model_path,

@@ -53,3 +53,9 @@ temporal/
 *.tar.gz
 *.rar
 *.7z
+
+# Large Model weights (Excluded to keep repo light - Notebook handles downloads)
+Source Code/models/
+Source Code/annotator/ckpts/
+Source Code/KAGGLE_README.txt
+Source Code/.gradio/

@@ -7,14 +7,16 @@ import argparse
 import os
 
 on_huggingspace = os.environ.get("SPACE_AUTHOR_NAME") == "PAIR"
-model = Model(device='cuda', dtype=torch.float16)
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model = Model(device=device, dtype=torch.float16 if device == "cuda" else torch.float32)
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--public_access', action='store_true',
                     help="if enabled, the app can be access from a public url", default=False)
 args = parser.parse_args()
 
 
-with gr.Blocks(css='style.css') as demo:
+with gr.Blocks() as demo:
 
     gr.HTML(
         """
@@ -34,9 +36,10 @@ with gr.Blocks(css='style.css') as demo:
 
 
 if on_huggingspace:
-    demo.queue(max_size=20)
-    demo.launch(debug=True)
+    demo.queue().launch(debug=True)
 else:
-    _, _, link = demo.queue(api_open=False).launch(
-        file_directories=['temporal'], share=args.public_access)
+    _, _, link = demo.queue().launch(
+        allowed_paths=['temporal'], 
+        share=args.public_access,
+        css='style.css')
     print(link)

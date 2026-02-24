@@ -204,11 +204,19 @@ Launch the primary Gradio-based studio engine from the `Source Code` directory:
 ```bash
 python app.py
 ```
-*Once initialized, navigate to the local URL provided in the terminal (typically `http://127.0.0.1:7860`).*
+> [!TIP]
+> **Studio Access**: Once the engine is initialized, navigate to the local URL provided in the terminal (typically `http://127.0.0.1:7860`). You can also enable public access by passing the `--public_access` flag during initialization.
 
-#### B. Cloud Research Laboratory
-Execute the complete **Neural Video Synthesis Research** directly in the cloud.
-> [Launch Zero-Shot Video Generation on Jupyter/Colab](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/blob/main/ZERO-SHOT-VIDEO-GENERATION.ipynb)
+#### B. Research & Automation Studio
+
+Execute the complete **Neural Video Synthesis Research** directly in the cloud. This interactive environment provides a zero-setup gateway for orchestrating high-fidelity temporal synthesis.
+
+> [!IMPORTANT]
+> ### Zero-Shot Video Generation | Cloud Research Laboratory
+>
+> Execute the complete **Neural Video Synthesis Research** directly in the cloud. This interactive **Google Colab Notebook** provides a zero-setup environment for orchestrating high-fidelity text-to-video synthesis, offering a scholarly gateway to the underlying Python-based latent diffusion and cross-frame attention architecture.
+>
+> [Launch Zero-Shot Video Studio on Google Colab](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/blob/main/ZERO-SHOT-VIDEO-GENERATION.ipynb)
 
 ---
 

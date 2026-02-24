@@ -111,6 +111,15 @@ The generative engine is governed by strict **computational design patterns** en
 ```python
 ZERO-SHOT-VIDEO-GENERATION/
 │
+├── docs/                            # Academic Documentation
+│   └── SPECIFICATION.md             # Technical Architecture
+│
+├── ML Project/                      # Research Assets & Deliverables
+│   ├── Zero-Shot Video Generation - Project Proposal.pdf
+│   ├── Zero-Shot Video Generation Project Report.pdf
+│   ├── Zero-Shot Video Generation.pdf
+│   └── Zero-Shot Video Generation.mp4
+│
 ├── Source Code/                     # Primary Application Layer
 │   ├── annotator/                   # Auxiliary Processing Modules
 │   ├── app.py                       # Main Gradio Studio Interface
@@ -125,7 +134,12 @@ ZERO-SHOT-VIDEO-GENERATION/
 │   ├── requirements.txt             # Dependency Manifest
 │   └── style.css                    # Component Styling
 │
+├── .gitattributes                   # Signal Normalization
 ├── .gitignore                       # Deployment Exclusions
+├── SECURITY.md                      # Security Protocols
+├── CITATION.cff                     # Academic Citation Manifest
+├── codemeta.json                    # Metadata Standard
+├── LICENSE                          # MIT License
 ├── README.md                        # Project Entrance
 └── ZERO-SHOT-VIDEO-GENERATION.ipynb # Research Notebook
 ```

@@ -51,7 +51,7 @@
 <a name="overview"></a>
 ## Overview
 
-**Zero-Shot Video Generation** is an advanced neural synthesis framework designed to transform textual descriptions into high-fidelity, temporally consistent video sequences. By leveraging the **SV2TTS**-inspired paradigm of cross-domain transfer (repurposing pre-trained **Latent Diffusion Models (LDMs)**), this project enables dynamic motion synthesis without requiring specialized video-based training datasets.
+**Zero-Shot Video Generation** is an advanced neural synthesis framework designed to transform textual descriptions into high-fidelity, temporally consistent video sequences. By leveraging a training-free paradigm of cross-domain latent transfer (repurposing pre-trained **Latent Diffusion Models (LDMs)**), this project enables dynamic motion synthesis without requiring specialized video-based training datasets.
 
 The core architecture implements a specialized inference-time logic that constrains the generative process across a discrete temporal axis. This addresses the fundamental challenge of **spatial-temporal manifold consistency**, ensuring that a sequence of independent latent samples converges into a coherent motion trajectory that mirrors the nuanced semantics of the input prompt.
 

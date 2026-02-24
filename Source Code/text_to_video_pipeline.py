@@ -1,3 +1,34 @@
+# ==================================================================================================
+# ZERO-SHOT-VIDEO-GENERATION - text_to_video_pipeline.py (Denoising & Warping)
+# ==================================================================================================
+# 
+# 📝 DESCRIPTION
+# This script houses the core mathematical framework for zero-shot video synthesis. It inherits from 
+# the standard `StableDiffusionPipeline` but comprehensively overrides the intrinsic generation loop. 
+# It implements a Denoising Diffusion Implicit Models (DDIM) backward process intertwined with 
+# Denoising Diffusion Probabilistic Models (DDPM) forward steps. Crucially, it manages the 
+# Temporal Latent Warping via motion fields, ensuring background consistency across sequential frames.
+#
+# 👤 AUTHORS
+# - Amey Thakur (https://github.com/Amey-Thakur)
+#
+# 🤝🏻 CREDITS
+# Based directly on the foundational logic of Text2Video-Zero.
+# Source Authors: Picsart AI Research (PAIR), UT Austin, U of Oregon, UIUC
+# Reference: https://arxiv.org/abs/2303.13439
+#
+# 🔗 PROJECT LINKS
+# Repository: https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION
+# Live Demo: https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation
+# Video Demo: https://youtu.be/za9hId6UPoY
+#
+# 📅 RELEASE DATE
+# November 22, 2023
+#
+# 📜 LICENSE
+# Released under the MIT License
+# ==================================================================================================
+
 from diffusers import StableDiffusionPipeline
 import torch
 from dataclasses import dataclass
@@ -18,14 +49,17 @@ from kornia.morphology import dilation
 
 @dataclass
 class TextToVideoPipelineOutput(BaseOutput):
-    # videos: Union[torch.Tensor, np.ndarray]
-    # code: Union[torch.Tensor, np.ndarray]
+    """Structured data container output returned following successful inference."""
     images: Union[List[PIL.Image.Image], np.ndarray]
     nsfw_content_detected: Optional[List[bool]]
 
 
 def coords_grid(batch, ht, wd, device):
-    # Adapted from https://github.com/princeton-vl/RAFT/blob/master/core/utils/utils.py
+    """
+    Constructs a meshed coordinate tensor mimicking spatial grids. Vital for tracking 
+    vector transformations during the temporal warping of latent spaces across frames.
+    Adapted from RAFT architecture.
+    """
     coords = torch.meshgrid(torch.arange(
         ht, device=device), torch.arange(wd, device=device))
     coords = torch.stack(coords[::-1], dim=0).float()
@@ -33,6 +67,9 @@ def coords_grid(batch, ht, wd, device):
 
 
 class TextToVideoPipeline(StableDiffusionPipeline):
+    """
+    Custom pipeline intercepting standard stable diffusion workflows to inject temporal consistency.
+    """
     def __init__(
         self,
         vae: AutoencoderKL,
@@ -58,6 +95,10 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         )
 
     def DDPM_forward(self, x0, t0, tMax, generator, device, shape, text_embeddings):
+        """
+        Calculates forward transition sequences (adding structured noise) according to DDPM logic.
+        This provides a base corrupted state upon which backward sampling operates for structural matching.
+        """
         rand_device = "cpu" if device.type == "mps" else device
 
         if x0 is None:
@@ -72,6 +113,10 @@ class TextToVideoPipeline(StableDiffusionPipeline):
             return xt
 
     def prepare_latents(self, batch_size, num_channels_latents, video_length, height, width, dtype, device, generator, latents=None):
+        """
+        Initializes memory tensors representing discrete frames within the target sequence, scaled 
+        by architectural limits (VAE factor) and filled with normalized variance structures.
+        """
         shape = (batch_size, num_channels_latents, video_length, height //
                  self.vae_scale_factor, width // self.vae_scale_factor)
         if isinstance(generator, list) and len(generator) != batch_size:
@@ -97,11 +142,15 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         else:
             latents = latents.to(device)
 
-        # scale the initial noise by the standard deviation required by the scheduler
+        # Scale the initial noise tensor utilizing the deviation expectations governed by the designated scheduler.
         latents = latents * self.scheduler.init_noise_sigma
         return latents
 
     def warp_latents_independently(self, latents, reference_flow):
+        """
+        Translates spatial matrices in latent dimensions using a formulated vector flow field. 
+        Enforces artificial perspective manipulation representing camera motion without 3D context.
+        """
         _, _, H, W = reference_flow.size()
         b, _, f, h, w = latents.size()
         assert b == 1
@@ -126,6 +175,10 @@ class TextToVideoPipeline(StableDiffusionPipeline):
 
     def DDIM_backward(self, num_inference_steps, timesteps, skip_t, t0, t1, do_classifier_free_guidance, null_embs, text_embeddings, latents_local,
                       latents_dtype, guidance_scale, guidance_stop_step, callback, callback_steps, extra_step_kwargs, num_warmup_steps):
+        """
+        Iterative denoising progression mapping random normal distributions to conditional signals.
+        Manages intermediate representation extraction pivotal for subsequent motion embedding operations.
+        """
         entered = False
 
         f = latents_local.shape[2]
@@ -147,13 +200,14 @@ class TextToVideoPipeline(StableDiffusionPipeline):
                         entered = True
 
                 latents = latents.detach()
-                # expand the latents if we are doing classifier free guidance
+                
+                # Expand tensor dimensionality dynamically facilitating CFG (Classifier-Free Guidance) alignment logic.
                 latent_model_input = torch.cat(
                     [latents] * 2) if do_classifier_free_guidance else latents
                 latent_model_input = self.scheduler.scale_model_input(
                     latent_model_input, t)
 
-                # predict the noise residual
+                # Inference iteration predicting unconditioned noise via the U-Net.
                 with torch.no_grad():
                     if null_embs is not None:
                         text_embeddings[0] = null_embs[i][0]
@@ -162,7 +216,7 @@ class TextToVideoPipeline(StableDiffusionPipeline):
                     noise_pred = self.unet(
                         latent_model_input, t, encoder_hidden_states=te).sample.to(dtype=latents_dtype)
 
-                # perform guidance
+                # Execute mathematical guidance interpolation pushing the latent away from negative constraints.
                 if do_classifier_free_guidance:
                     noise_pred_uncond, noise_pred_text = noise_pred.chunk(
                         2)
@@ -171,12 +225,12 @@ class TextToVideoPipeline(StableDiffusionPipeline):
 
                 if i >= guidance_stop_step * len(timesteps):
                     alpha = 0
-                # compute the previous noisy sample x_t -> x_t-1
+                    
+                # Iterate backward state deduction via the implicit probabilistic scheduler logic.
                 latents = self.scheduler.step(
                     noise_pred, t, latents, **extra_step_kwargs).prev_sample
-                # latents = latents - alpha * grads / (torch.norm(grads) + 1e-10)
-                # call the callback, if provided
-
+                
+                # Checkpointing logic intercepting target transition coordinates for cross-attention syncing.
                 if i < len(timesteps)-1 and timesteps[i+1] == t0:
                     x_t0_1 = latents.detach().clone()
                     print(f"latent t0 found at i = {i}, t = {t}")
@@ -201,18 +255,24 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         return res
 
     def decode_latents(self, latents):
+        """
+        Translates compressed dimensional tensors back into visual RGB pixel matrices via the 
+        Variational Auto-Encoder (VAE). Implements clamping bounding values strictly between output channels.
+        """
         video_length = latents.shape[2]
         latents = 1 / 0.18215 * latents
         latents = rearrange(latents, "b c f h w -> (b f) c h w")
         video = self.vae.decode(latents).sample
         video = rearrange(video, "(b f) c h w -> b c f h w", f=video_length)
         video = (video / 2 + 0.5).clamp(0, 1)
-        # we always cast to float32 as this does not cause significant overhead and is compatible with bfloa16
         video = video.detach().cpu()
         return video
 
     def create_motion_field(self, motion_field_strength_x, motion_field_strength_y, frame_ids, video_length, latents):
-
+        """
+        Mathematically plots directional motion limits establishing global flow characteristics representing 
+        simulated physical panning.
+        """
         reference_flow = torch.zeros(
             (video_length-1, 2, 512, 512), device=latents.device, dtype=latents.dtype)
         for fr_idx, frame_id in enumerate(frame_ids):
@@ -223,7 +283,10 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         return reference_flow
 
     def create_motion_field_and_warp_latents(self, motion_field_strength_x, motion_field_strength_y, frame_ids, video_length, latents):
-
+        """
+        Combined procedural algorithm allocating motion flow sequences and subsequently manipulating 
+        corresponding frame vectors mapping directly directly aligned with those boundaries.
+        """
         motion_field = self.create_motion_field(motion_field_strength_x=motion_field_strength_x,
                                                 motion_field_strength_y=motion_field_strength_y, latents=latents, video_length=video_length, frame_ids=frame_ids)
         for idx, latent in enumerate(latents):
@@ -262,6 +325,10 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         t1: int = 47,
         **kwargs,
     ):
+        """
+        The central generative sequence loop initializing text encoding paradigms and subsequently processing 
+        latents leveraging the overridden logic mapping frame motion across intermediate outputs.
+        """
         frame_ids = kwargs.pop("frame_ids", list(range(video_length)))
         assert t0 < t1
         assert num_videos_per_prompt == 1
@@ -282,33 +349,27 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         prompt = prompt_types[0]
         negative_prompt = prompt_types[1]
 
-        # Default height and width to unet
+        # Resolution enforcement matching intrinsic model configurations preventing convolution mismatch errors.
         height = height or self.unet.config.sample_size * self.vae_scale_factor
         width = width or self.unet.config.sample_size * self.vae_scale_factor
 
-        # Check inputs. Raise error if not correct
         self.check_inputs(prompt, height, width, callback_steps)
 
-        # Define call parameters
         batch_size = 1 if isinstance(prompt, str) else len(prompt)
         device = self._execution_device
-        # here `guidance_scale` is defined analog to the guidance weight `w` of equation (2)
-        # of the Imagen paper: https://arxiv.org/pdf/2205.11487.pdf . `guidance_scale = 1`
-        # corresponds to doing no classifier free guidance.
+        
+        # Determine weighting logic prioritizing prompt representations above baseline statistical averages.
         do_classifier_free_guidance = guidance_scale > 1.0
 
-        # Encode input prompt
+        # Transform natural language sequences to embedded tokens readable directly by the execution stack.
         text_embeddings = self._encode_prompt(
             prompt, device, num_videos_per_prompt, do_classifier_free_guidance, negative_prompt
         )
 
-        # Prepare timesteps
         self.scheduler.set_timesteps(num_inference_steps, device=device)
         timesteps = self.scheduler.timesteps
 
-        # print(f" Latent shape = {latents.shape}")
 
-        # Prepare latent variables
         num_channels_latents = self.unet.in_channels
 
         xT = self.prepare_latents(
@@ -324,7 +385,6 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         )
         dtype = xT.dtype
 
-        # when motion field is not used, augment with random latent codes
         if use_motion_field:
             xT = xT[:, :, :1]
         else:
@@ -356,15 +416,14 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         print(f"t0 = {t0} t1 = {t1}")
         x_t1_1 = None
 
-        # Prepare extra step kwargs.
         extra_step_kwargs = self.prepare_extra_step_kwargs(generator, eta)
-        # Denoising loop
         num_warmup_steps = len(timesteps) - \
             num_inference_steps * self.scheduler.order
 
         shape = (batch_size, num_channels_latents, 1, height //
                  self.vae_scale_factor, width // self.vae_scale_factor)
 
+        # Proceed directly resolving generative step operations iteratively through intermediate matrices.
         ddim_res = self.DDIM_backward(num_inference_steps=num_inference_steps, timesteps=timesteps, skip_t=1000, t0=t0, t1=t1, do_classifier_free_guidance=do_classifier_free_guidance,
                                       null_embs=null_embs, text_embeddings=text_embeddings, latents_local=xT, latents_dtype=dtype, guidance_scale=guidance_scale, guidance_stop_step=guidance_stop_step,
                                       callback=callback, callback_steps=callback_steps, extra_step_kwargs=extra_step_kwargs, num_warmup_steps=num_warmup_steps)
@@ -377,6 +436,7 @@ class TextToVideoPipeline(StableDiffusionPipeline):
             x_t1_1 = ddim_res["x_t1_1"].detach()
         del ddim_res
         del xT
+        
         if use_motion_field:
             del x0
 
@@ -385,7 +445,7 @@ class TextToVideoPipeline(StableDiffusionPipeline):
             reference_flow, x_t0_k = self.create_motion_field_and_warp_latents(
                 motion_field_strength_x=motion_field_strength_x, motion_field_strength_y=motion_field_strength_y, latents=x_t0_k, video_length=video_length, frame_ids=frame_ids[1:])
 
-            # assuming t0=t1=1000, if t0 = 1000
+            # Integrate forward transitions maintaining consistency alignment vectors across timestamps.
             if t1 > t0:
                 x_t1_k = self.DDPM_forward(
                     x0=x_t0_k, t0=t0, tMax=t1, device=device, shape=shape, text_embeddings=text_embeddings, generator=generator)
@@ -413,7 +473,7 @@ class TextToVideoPipeline(StableDiffusionPipeline):
             x_t0_k = x_t0_1[:, :, 1:, :, :].clone()
             x_t0_1 = x_t0_1[:, :, :1, :, :].clone()
 
-        # smooth background
+        # Advanced enhancement enabling salient background detection stabilizing elements avoiding 'flickering' logic.
         if smooth_bg:
             h, w = x0.shape[3], x0.shape[4]
             M_FG = torch.zeros((batch_size, video_length, h, w),
@@ -424,13 +484,14 @@ class TextToVideoPipeline(StableDiffusionPipeline):
                 for frame_idx, z0_f in enumerate(z0_b):
                     z0_f = torch.round(
                         z0_f * 255).cpu().numpy().astype(np.uint8)
-                    # apply SOD detection
+                    # Integrate salient object detection mapping isolating movement specifically to boundaries.
                     if hasattr(self, 'sod_model') and self.sod_model is not None:
                         m_f = torch.tensor(self.sod_model.process_data(
                             z0_f), device=x0.device).to(x0.dtype)
                     else:
                         print("Warning: sod_model not found. Skipping smooth background detection for this frame.")
                         m_f = torch.zeros((h, w), device=x0.device).to(x0.dtype)
+                        
                     mask = T.Resize(
                         size=(h, w), interpolation=T.InterpolationMode.NEAREST)(m_f[None])
                     kernel = torch.ones(5, 5, device=x0.device, dtype=x0.dtype)
@@ -492,7 +553,7 @@ class TextToVideoPipeline(StableDiffusionPipeline):
 
         latents = x0
 
-        # manually for max memory savings
+        # Memory conservation protocols forcing release of resident blocks when idle reducing structural leak probability.
         if hasattr(self, "final_offload_hook") and self.final_offload_hook is not None:
             self.unet.to("cpu")
         torch.cuda.empty_cache()
@@ -503,12 +564,12 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         else:
             image = self.decode_latents(latents)
 
-            # Run safety checker
+            # Execution safety filters targeting policy compliance detecting explicitly generated structures.
             image, has_nsfw_concept = self.run_safety_checker(
                 image, device, text_embeddings.dtype)
             image = rearrange(image, "b c f h w -> (b f) h w c")
 
-        # Offload last model to CPU
+        # Fallback offloading preventing hardware locks.
         if hasattr(self, "final_offload_hook") and self.final_offload_hook is not None:
             self.final_offload_hook.offload()
 

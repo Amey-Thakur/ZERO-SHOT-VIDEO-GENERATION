@@ -1,9 +1,45 @@
+# ==================================================================================================
+# ZERO-SHOT-VIDEO-GENERATION - gradio_utils.py (Interface Utilities)
+# ==================================================================================================
+# 
+# 📝 DESCRIPTION
+# This utility module provides essential helper functions for the Gradio web interface. It acts 
+# as an intermediary data transformation layer, managing the resolution of internal asset paths, 
+# interpreting user interactions across various deployment modalities (e.g., Canny edge detection, 
+# Pose estimation, Dreambooth fine-tuning), and structurally validating input/output pathways 
+# ensuring consistency during the text-to-video associative processing sequences.
+#
+# 👤 AUTHORS
+# - Amey Thakur (https://github.com/Amey-Thakur)
+#
+# 🤝🏻 CREDITS
+# Based directly on the foundational logic of Text2Video-Zero.
+# Source Authors: Picsart AI Research (PAIR), UT Austin, U of Oregon, UIUC
+# Reference: https://arxiv.org/abs/2303.13439
+#
+# 🔗 PROJECT LINKS
+# Repository: https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION
+# Live Demo: https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation
+# Video Demo: https://youtu.be/za9hId6UPoY
+#
+# � RELEASE DATE
+# November 22, 2023
+#
+# �📜 LICENSE
+# Released under the MIT License
+# ==================================================================================================
+
 import os
 
-# App Canny utils
-
+# --- CONTROLNET: CANNY EDGE UTILITIES ---
+# These functions map symbolic interface selections (like predefined edge maps) to their 
+# corresponding physical file paths within the asset directory, ensuring strict structural validation.
 
 def edge_path_to_video_path(edge_path):
+    """
+    Translates a provided qualitative description or partial path of an edge map to a fully 
+    qualified internal asset registry path used during video processing.
+    """
     video_path = edge_path
 
     vid_name = edge_path.split("/")[-1]
@@ -22,12 +58,17 @@ def edge_path_to_video_path(edge_path):
     elif vid_name == "santa.mp4":
         video_path = "__assets__/canny_videos_mp4/santa.mp4"
 
+    # Strict validation ensures subsequent neural tensor loading operations do not encounter IOErrors.
     assert os.path.isfile(video_path)
     return video_path
 
 
-# App Pose utils
+# --- CONTROLNET: POSE ESTIMATION UTILITIES ---
 def motion_to_video_path(motion):
+    """
+    Translates textual motion directives (e.g., 'Dance 1') into mapped physical skeleton GIF 
+    assets utilized for conditioning the temporal generation in Pose methodologies.
+    """
     videos = [
         "__assets__/poses_skeleton_gifs/dance1_corr.mp4",
         "__assets__/poses_skeleton_gifs/dance2_corr.mp4",
@@ -42,8 +83,11 @@ def motion_to_video_path(motion):
         return motion
 
 
-# App Canny Dreambooth utils
+# --- DREAMBOOTH: ZERO-SHOT INCORPORATION UTILITIES ---
 def get_video_from_canny_selection(canny_selection):
+    """
+    Resolves base video sequences specifically tailored for fine-tuned Dreambooth inference.
+    """
     if canny_selection == "woman1":
         input_video_path = "__assets__/db_files_2fps/woman1.mp4"
 
@@ -63,6 +107,10 @@ def get_video_from_canny_selection(canny_selection):
 
 
 def get_model_from_db_selection(db_selection):
+    """
+    Translates user-friendly stylistic dropdown options into exact neural checkpoint identifiers 
+    hosted on corresponding model hubs.
+    """
     if db_selection == "Anime DB":
         input_video_path = 'PAIR/text2video-zero-controlnet-canny-anime'
     elif db_selection == "Avatar DB":
@@ -78,16 +126,23 @@ def get_model_from_db_selection(db_selection):
 
 
 def get_db_name_from_id(id):
+    """Auxiliary mapper for Dreambooth stylistic identifiers."""
     db_names = ["Anime DB", "Arcane DB", "GTA-5 DB", "Avatar DB"]
     return db_names[id]
 
 
 def get_canny_name_from_id(id):
+    """Auxiliary mapper for base semantic subjects."""
     canny_names = ["woman1", "woman2", "man1", "woman3"]
     return canny_names[id]
 
 
+# --- WATERMARKING & ATTRIBUTION ---
 def logo_name_to_path(name):
+    """
+    Interprets watermark selection for programmatic embedding into the terminal composite 
+    video frames to enforce attribution.
+    """
     logo_paths = {
         'Picsart AI Research': '__assets__/pair_watermark.png',
         'Text2Video-Zero': '__assets__/t2v-z_watermark.png',
@@ -96,3 +151,4 @@ def logo_name_to_path(name):
     if name in logo_paths:
         return logo_paths[name]
     return name
+

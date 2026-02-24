@@ -1,3 +1,33 @@
+# ==================================================================================================
+# ZERO-SHOT-VIDEO-GENERATION - utils.py (Processing & Attention Utilities)
+# ==================================================================================================
+# 
+# 📝 DESCRIPTION
+# This script contains fundamental auxiliary routines supporting matrix manipulation, spatial 
+# transformations, temporal processing capabilities (like extracting discrete frames from video 
+# sources), and custom attention mechanisms. In particular, it houses the CrossFrameAttnProcessor, 
+# which is instrumental in enforcing the temporal coherence across generated sequence frames.
+#
+# 👤 AUTHORS
+# - Amey Thakur (https://github.com/Amey-Thakur)
+#
+# 🤝🏻 CREDITS
+# Based directly on the foundational logic of Text2Video-Zero.
+# Source Authors: Picsart AI Research (PAIR), UT Austin, U of Oregon, UIUC
+# Reference: https://arxiv.org/abs/2303.13439
+#
+# 🔗 PROJECT LINKS
+# Repository: https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION
+# Live Demo: https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation
+# Video Demo: https://youtu.be/za9hId6UPoY
+#
+# 📅 RELEASE DATE
+# November 22, 2023
+#
+# 📜 LICENSE
+# Released under the MIT License
+# ==================================================================================================
+
 import os
 
 import PIL.Image
@@ -21,6 +51,11 @@ apply_midas = MidasDetector()
 
 
 def pre_process_canny(input_video, low_threshold=100, high_threshold=200):
+    """
+    Applies Canny edge detection across a sequential batch of image frames. This algorithm 
+    extracts high-frequency spatial gradients, representing the structural edges acting as 
+    conditioning signals for the generation pipeline.
+    """
     detected_maps = []
     for frame in input_video:
         img = rearrange(frame, 'c h w -> h w c').cpu().numpy().astype(np.uint8)
@@ -33,6 +68,10 @@ def pre_process_canny(input_video, low_threshold=100, high_threshold=200):
 
 
 def pre_process_depth(input_video, apply_depth_detect: bool = True):
+    """
+    Processes a frame batch utilizing the MiDaS network estimating relative perspective depth mapping.
+    Yields robust 3D structural boundaries optimizing foreground/background generation isolation.
+    """
     detected_maps = []
     for frame in input_video:
         img = rearrange(frame, 'c h w -> h w c').cpu().numpy().astype(np.uint8)
@@ -51,6 +90,10 @@ def pre_process_depth(input_video, apply_depth_detect: bool = True):
 
 
 def pre_process_pose(input_video, apply_pose_detect: bool = True):
+    """
+    Leverages OpenPose structural skeletal estimation calculating limb mapping over sequential frames. 
+    Ideal for dictating complex biomechanical motion rendering.
+    """
     detected_maps = []
     for frame in input_video:
         img = rearrange(frame, 'c h w -> h w c').cpu().numpy().astype(np.uint8)
@@ -69,6 +112,10 @@ def pre_process_pose(input_video, apply_pose_detect: bool = True):
 
 
 def create_video(frames, fps, rescale=False, path=None, watermark=None):
+    """
+    Compiles distinct tensor arrays back into standard compressed video files utilizing MP4 encoding.
+    Optionally overlays defined attribution watermarking maintaining visual logic bounds.
+    """
     if path is None:
         dir = "temporal"
         os.makedirs(dir, exist_ok=True)
@@ -84,12 +131,12 @@ def create_video(frames, fps, rescale=False, path=None, watermark=None):
         if watermark is not None:
             x = add_watermark(x, watermark)
         outputs.append(x)
-        # imageio.imsave(os.path.join(dir, os.path.splitext(name)[0] + f'_{i}.jpg'), x)
 
     imageio.mimsave(path, outputs, fps=fps)
     return path
 
 def create_gif(frames, fps, rescale=False, path=None, watermark=None):
+    """Auxiliary logic encoding frames specifically into lossless loop GIF representations."""
     if path is None:
         dir = "temporal"
         os.makedirs(dir, exist_ok=True)
@@ -104,12 +151,14 @@ def create_gif(frames, fps, rescale=False, path=None, watermark=None):
         if watermark is not None:
             x = add_watermark(x, watermark)
         outputs.append(x)
-        # imageio.imsave(os.path.join(dir, os.path.splitext(name)[0] + f'_{i}.jpg'), x)
 
     imageio.mimsave(path, outputs, fps=fps)
     return path
 
 def add_watermark(image, watermark_path):
+    """
+    Injects overlay logo bitmaps applying standard blending mathematics on the target matrices.
+    """
     if watermark_path is None or not os.path.exists(watermark_path):
         return image
     
@@ -121,6 +170,10 @@ def add_watermark(image, watermark_path):
     return np.array(img.convert("RGB"))
 
 def prepare_video(video_path:str, resolution:int, device, dtype, normalize=True, start_t:float=0, end_t:float=-1, output_fps:int=-1):
+    """
+    Executes raw video extraction reading target sequences and sampling specifically calculated framerates.
+    Translates sequences directly into operational multi-dimensional PyTorch tensors.
+    """
     vr = decord.VideoReader(video_path)
     initial_fps = vr.get_avg_fps()
     if output_fps == -1:
@@ -145,7 +198,6 @@ def prepare_video(video_path:str, resolution:int, device, dtype, normalize=True,
     video = torch.Tensor(video).to(device).to(dtype)
 
     # Use max if you want the larger side to be equal to resolution (e.g. 512)
-    # k = float(resolution) / min(h, w)
     k = float(resolution) / max(h, w)
     h *= k
     w *= k
@@ -159,12 +211,18 @@ def prepare_video(video_path:str, resolution:int, device, dtype, normalize=True,
 
 
 def post_process_gif(list_of_results, image_resolution):
+    """Convenience wrapper mapping output streams targeting fixed structural path encoding."""
     output_file = "/tmp/ddxk.gif"
     imageio.mimsave(output_file, list_of_results, fps=4)
     return output_file
 
 
 class CrossFrameAttnProcessor:
+    """
+    Fundamental Neural Network hook modifying the default UNet implementation. Rewrites the internal 
+    attention lookup dictating that independent latent patches correlate queries against the persistent 
+    Keys and Values established strictly by the initiating first temporal frame, resolving sequence drifting.
+    """
     def __init__(self, unet_chunk_size=2):
         self.unet_chunk_size = unet_chunk_size
 
@@ -187,11 +245,10 @@ class CrossFrameAttnProcessor:
             encoder_hidden_states = attn.norm_cross(encoder_hidden_states)
         key = attn.to_k(encoder_hidden_states)
         value = attn.to_v(encoder_hidden_states)
-        # Sparse Attention
+        
+        # Sparse Attention enforcement mapping representations matching global zero definitions.
         if not is_cross_attention:
             video_length = key.size()[0] // self.unet_chunk_size
-            # former_frame_index = torch.arange(video_length) - 1
-            # former_frame_index[0] = 0
             former_frame_index = [0] * video_length
             key = rearrange(key, "(b f) d c -> b f d c", f=video_length)
             key = key[:, former_frame_index]

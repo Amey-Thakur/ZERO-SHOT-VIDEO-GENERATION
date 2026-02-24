@@ -2,7 +2,7 @@
 
 ## Architectural Overview
 
-**Zero-Shot Video Generation** is an advanced neural synthesis framework designed to transform textual descriptions into high-fidelity, temporally consistent video sequences. This system leverages a training-free paradigm of cross-domain latent transfer—repurposing pre-trained **Latent Diffusion Models (LDM)**—combined with specialized cross-frame attention mechanisms and motion field modeling to achieve zero-shot video synthesis.
+**Zero-Shot Video Generation** is an advanced neural synthesis framework designed to transform textual descriptions into high-fidelity, temporally consistent video sequences. This system leverages a training-free paradigm of cross-domain latent transfer, repurposing pre-trained **Latent Diffusion Models (LDM)**, combined with specialized cross-frame attention mechanisms and motion field modeling to achieve zero-shot video synthesis.
 
 ### Neural Pipeline Flow
 

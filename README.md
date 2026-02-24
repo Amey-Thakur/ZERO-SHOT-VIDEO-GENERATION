@@ -51,7 +51,7 @@
 <a name="overview"></a>
 ## Overview
 
-**Zero-Shot Video Generation** is an advanced neural synthesis framework designed to transform textual descriptions into high-fidelity, temporally consistent video sequences. By leveraging a training-free paradigm of cross-domain latent transfer (repurposing pre-trained **Latent Diffusion Models (LDMs)**), this project enables dynamic motion synthesis without requiring specialized video-based training datasets.
+**Zero-Shot Video Generation** is an advanced neural synthesis framework designed to transform textual descriptions into temporally consistent video sequences. By leveraging a training-free paradigm of cross-domain latent transfer (repurposing pre-trained **Latent Diffusion Models (LDMs)**), this project enables dynamic motion synthesis without requiring specialized video-based training datasets.
 
 The core architecture implements a specialized inference-time logic that constrains the generative process across a discrete temporal axis. This addresses the fundamental challenge of **spatial-temporal manifold consistency**, ensuring that a sequence of independent latent samples converges into a coherent motion trajectory that mirrors the nuanced semantics of the input prompt.
 
@@ -61,7 +61,7 @@ The core architecture implements a specialized inference-time logic that constra
 
 > [!NOTE]
 > ### 🎥 Defining Zero-Shot Video Synthesis
-> In the context of generative AI, **Zero-Shot Video Synthesis** refers to the production of video content where the model has not been explicitly trained on motion data. The system operates by injecting **temporal structural priors**, specifically **cross-frame attention** and **latent trajectory warping**, into a pre-trained image generator. This method eliminates the prohibitive computational and data costs of traditional video models while preserving the high-fidelity stylistic capabilities of large-scale diffusion backbones.
+> In the context of generative AI, **Zero-Shot Video Synthesis** refers to the production of video content where the model has not been explicitly trained on motion data. The system operates by injecting **temporal structural priors**, specifically **cross-frame attention** and **latent trajectory warping**, into a pre-trained image generator. This method eliminates the prohibitive computational and data costs of traditional video models while preserving the generative stylistic capabilities of large-scale diffusion backbones.
 
 The repository serves as a comprehensive technical case study into **Generative Machine Learning**, **Latent Space Dynamics**, and **Neural Attention Modulation**. It bridges the gap between theoretical research and practical deployment through an optimized **Gradio-based interactive studio**, allowing for high-performance experimentation with zero-shot motion synthesis heuristics.
 
@@ -185,9 +185,11 @@ ZERO-SHOT-VIDEO-GENERATION/
   <img src="screenshots/04_generation_results.png" alt="Generation Results" width="90%">
   <br><br><br>
 
-  <b>Generated Video Output: Neural Motion Sequence</b>
+  <b>Generated Result Output: Neural Motion Sequence</b>
   <br>
   <i>Verified spatial-temporal consistency within the generated latent trajectory.</i>
+  <br><br>
+  <img src="screenshots/zero_shot_video_output.gif" alt="Zero-Shot Video GIF" width="90%">
   <br><br>
   <video src="https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/raw/main/screenshots/zero_shot_video_output.mp4" width="90%" controls loop autoplay muted></video>
   <br><br>
@@ -248,12 +250,12 @@ python app.py
 
 #### B. Research & Automation Studio
 
-Execute the complete **Neural Video Synthesis Research** directly in the cloud. This interactive environment provides a zero-setup gateway for orchestrating high-fidelity temporal synthesis.
+Execute the complete **Neural Video Synthesis Research** directly in the cloud. This interactive environment provides a zero-setup gateway for orchestrating temporal synthesis research.
 
 > [!IMPORTANT]
 > ### Zero-Shot Video Generation | Cloud Research Laboratory
 >
-> Execute the complete **Neural Video Synthesis Research** directly in the cloud. This interactive **Google Colab Notebook** provides a zero-setup environment for orchestrating high-fidelity text-to-video synthesis, offering a scholarly gateway to the underlying Python-based latent diffusion and cross-frame attention architecture.
+> Execute the complete **Neural Video Synthesis Research** directly in the cloud. This interactive **Google Colab Notebook** provides a zero-setup environment for orchestrating neural text-to-video synthesis, offering a scholarly gateway to the underlying Python-based latent diffusion and cross-frame attention architecture.
 >
 > [Launch Zero-Shot Video Studio on Google Colab](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/blob/main/ZERO-SHOT-VIDEO-GENERATION.ipynb)
 

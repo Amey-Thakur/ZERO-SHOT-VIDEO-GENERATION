@@ -42,10 +42,22 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         scheduler: KarrasDiffusionSchedulers,
         safety_checker: StableDiffusionSafetyChecker,
         feature_extractor: CLIPImageProcessor,
+        image_encoder: Optional[torch.nn.Module] = None,
         requires_safety_checker: bool = True,
+        **kwargs,
     ):
-        super().__init__(vae, text_encoder, tokenizer, unet, scheduler,
-                         safety_checker, feature_extractor, requires_safety_checker)
+        super().__init__(
+            vae=vae,
+            text_encoder=text_encoder,
+            tokenizer=tokenizer,
+            unet=unet,
+            scheduler=scheduler,
+            safety_checker=safety_checker,
+            feature_extractor=feature_extractor,
+            image_encoder=image_encoder,
+            requires_safety_checker=requires_safety_checker,
+            **kwargs,
+        )
 
     def DDPM_forward(self, x0, t0, tMax, generator, device, shape, text_embeddings):
         rand_device = "cpu" if device.type == "mps" else device

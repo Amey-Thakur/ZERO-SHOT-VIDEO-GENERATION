@@ -156,30 +156,44 @@ ZERO-SHOT-VIDEO-GENERATION/
 <a name="results"></a>
 ## Results
 
-<div align="center">
+  <div align="center">
+  <b>Main Interface: Modern Design</b>
+  <br>
+  <i>Initial system state with clean aesthetics and synchronized brand identity.</i>
+  <br><br>
+  <img src="screenshots/01_studio_interface.png" alt="Studio Interface" width="90%">
+  <br><br><br>
 
-### Visual Synthesis Gallery
+  <b>Synthesis Orchestration: Neural Config</b>
+  <br>
+  <i>Configuring latent diffusion pipelines and temporal consistency heuristics for motion generation.</i>
+  <br><br>
+  <img src="screenshots/02_model_configuration.png" alt="Model Configuration" width="90%">
+  <br><br><br>
 
-![Studio Interface](screenshots/01_studio_interface.png)
-**Interactive Neural Studio**: The primary application interface for orchestrating zero-shot video synthesis sessions.
+  <b>Latent Trajectory: Real-Time Inference</b>
+  <br>
+  <i>System Distillery visualizing the denoising process across the temporal manifold.</i>
+  <br><br>
+  <img src="screenshots/03_neural_processing.png" alt="Neural Processing" width="90%">
+  <br><br><br>
 
-![Model Configuration](screenshots/02_model_configuration.png)
-**Synthesis Orchestration**: Configuring latent diffusion pipelines and temporal consistency heuristics for motion generation.
+  <b>Generative Result: Temporal Convergence</b>
+  <br>
+  <i>A horse is galloping along a sandy beach near the ocean.</i>
+  <br><br>
+  <img src="screenshots/04_generation_results.png" alt="Generation Results" width="90%">
+  <br><br><br>
 
-![Neural Processing](screenshots/03_neural_processing.png)
-**Latent Trajectory Inference**: Real-time visualization of the denoising process across the temporal manifold.
-
-![Generation Results](screenshots/04_generation_results.png)
-**Temporal Convergence**: High-fidelity video sequence synthesis with verified spatial-temporal consistency.
-
-### Generative Output
-
-<video src="screenshots/zero_shot_video_output.mp4" width="100%" controls loop autoplay muted></video>
-
-*Generated Result: Neural Motion Sequence (Zero-Shot Synthesis)*
-
-[Download Original MP4](screenshots/zero_shot_video_output.mp4)
-
+  <b>Neural Motion Sequence: Synthesis Output</b>
+  <br>
+  <i>Verified spatial-temporal consistency within the generated latent trajectory.</i>
+  <br><br>
+  <img src="screenshots/zero_shot_video_output.gif" alt="Zero-Shot Video GIF" width="90%">
+  <br><br>
+  <video src="screenshots/zero_shot_video_output.mp4" width="90%" controls loop autoplay muted></video>
+  <br><br>
+  <a href="screenshots/zero_shot_video_output.mp4"><b>Download Original MP4 Signal</b></a>
 </div>
 
 ---

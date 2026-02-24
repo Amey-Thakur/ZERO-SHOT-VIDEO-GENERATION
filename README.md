@@ -1,72 +1,265 @@
-# ZERO-SHOT-VIDEO-GENERATION
+<div align="center">
 
- 👍🏻 ELEC8900: ML - Project [SEMESTER II]
- 
- - [X] **GENG8900: [ML](https://github.com/Amey-Thakur/MACHINE--LEARNING)**
+  <a name="readme-top"></a>
+  # Zero-Shot Video Generation
+
+  [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
+  ![Status](https://img.shields.io/badge/Status-Completed-success)
+  [![Technology](https://img.shields.io/badge/Technology-Python%20%7C%20Deep%20Learning-blueviolet)](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION)
+  [![Developed by Amey Thakur, Jithin Gijo & Ritika Agarwal](https://img.shields.io/badge/Developed%20by-Amey%20Thakur,%20Jithin%20Gijo%20%26%20Ritika%20Agarwal-blue.svg)](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION)
+
+  An innovative neural synthesis platform for transforming text into dynamic, temporally consistent video content utilizing advanced latent diffusion methodologies.
+
+  **[Source Code](Source%20Code/)** &nbsp;·&nbsp; **[Project Report](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation%20Project%20Report.pdf)** &nbsp;·&nbsp; **[Video Demo](https://youtu.be/za9hId6UPoY)** &nbsp;·&nbsp; **[Live Demo](https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation)**
+
+  <br>
+
+  <a href="https://youtu.be/za9hId6UPoY">
+    <img src="https://img.youtube.com/vi/za9hId6UPoY/hqdefault.jpg" alt="Video Demo" width="70%">
+  </a>
+
+</div>
 
 ---
 
->**Machine Learning Project**
+<div align="center">
 
-  - [Project Proposal](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation%20-%20Project%20Proposal.pdf)
-  
-  - [Project Presentation](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation.pdf)
-  
-  - [Project Demo](https://youtu.be/za9hId6UPoY)
-  
-  - [Report](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation%20Project%20Report.pdf)
+  [Authors](#authors) &nbsp;·&nbsp; [Overview](#overview) &nbsp;·&nbsp; [Features](#features) &nbsp;·&nbsp; [Structure](#project-structure) &nbsp;·&nbsp; [Results](#results) &nbsp;·&nbsp; [Quick Start](#quick-start) &nbsp;·&nbsp; [Usage Guidelines](#usage-guidelines) &nbsp;·&nbsp; [License](#license) &nbsp;·&nbsp; [About](#about-this-repository) &nbsp;·&nbsp; [Acknowledgments](#acknowledgments)
+
+</div>
 
 ---
 
-## Introduction
-The Zero-Shot Video Generation ML Project is an innovative solution for transforming text into dynamic video content. This README guides you through setting up and running the project on your local machine.
+<!-- AUTHORS -->
+<div align="center">
 
-## Prerequisites
-- Python 3.8+
+  <a name="authors"></a>
+  ## Authors
 
-## Installation
+| <a href="https://github.com/Amey-Thakur"><img src="https://github.com/Amey-Thakur.png" width="150" height="150" alt="Amey Thakur"></a><br>[**Amey Thakur**](https://github.com/Amey-Thakur)<br><br>[![ORCID](https://img.shields.io/badge/ORCID-0000--0001--5644--1575-green.svg)](https://orcid.org/0000-0001-5644-1575) | <br><br><br><br><br>[**Jithin Gijo**]()<br><br><br> | <br><br><br><br><br>[**Ritika Agarwal**]()<br><br><br> |
+| :---: | :---: | :---: |
 
-### Step 1: Clone the Repository
-```bash
-git clone https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION
-# Or download and extract the zip file
+</div>
+
+> [!IMPORTANT]
+> ### 🤝🏻 Special Acknowledgement
+> *Special thanks to **Jithin Gijo** and **Ritika Agarwal** for their meaningful contributions, guidance, and support that helped shape this work.*
+
+---
+
+<!-- OVERVIEW -->
+<a name="overview"></a>
+## Overview
+
+**Zero-Shot Video Generation** is an advanced machine learning project developed as part of **ELEC8900: Machine Learning** at the **University of Windsor**. It presents an innovative solution for generating high-definition, temporally consistent video sequences directly from textual prompts without requiring paired text-video training data.
+
+> [!IMPORTANT]
+> ### Attribution
+> This project is inspired by and builds upon the foundational research of **[Text2Video-Zero](https://arxiv.org/abs/2303.13439)** conducted by the team at Picsart AI Research (PAIR), UT Austin, U of Oregon, and UIUC.
+
+> [!NOTE]
+> ### 🎥 Defining Zero-Shot Video Generation
+> **Zero-Shot Video Generation** leverages pre-trained text-to-image diffusion models, systematically modifying them to synthesize video. By employing cross-frame attention mechanisms and latent trajectory dynamics, the architecture enforces temporal consistency across generated frames, eliminating the computationally expensive need for massive video datasets while maintaining striking visual fidelity.
+
+The repository serves as a digital study into the mechanics of neural video synthesis and latent space manipulation, brought into a modern context via a high-performance **Gradio** web interface.
+
+### Synthesis Heuristics
+The generative engine is governed by strict **computational design patterns** ensuring fidelity and temporal coherence:
+*   **Temporal Consistency**: Custom cross-frame attention layers and latent warping ensure background stability and smooth object motion across sequential frames.
+*   **Zero-Shot Inference**: Harnessing foundational image diffusion models (e.g., Stable Diffusion) to synthesize motion dynamically without specialized video fine-tuning.
+*   **Architectural Flexibility**: Supports multiple diffusion backbones, allowing adaptive synthesis paths tailored to diverse visual aesthetics and rendering requirements.
+
+> [!TIP]
+> **Spatial-Temporal Precision Integration**
+>
+> To maximize sequence clarity, the engine employs a **multi-stage neural pipeline**. **Latent motion fields** refine the temporal stream, strictly coupling structural dynamics with state changes. This ensures the generated scene constantly aligns with the underlying textual simulation.
+
+---
+
+<!-- FEATURES -->
+<a name="features"></a>
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Core Diffusion** | Integrates **Stable Diffusion pipelines** customized for continuous temporal frame synthesis. |
+| **Interactive Studio** | Implements a robust standalone interface via Gradio for immediate generative video study. |
+| **Academic Clarity** | In-depth and detailed scholarly comments integrated throughout the codebase for transparent logic study. |
+| **Neural Topology** | Efficient hardware acceleration via **PyTorch** and CUDA ensuring optimal tensor computations. |
+| **Inference Pipeline** | Modular architecture supporting multiple model checkpoints directly from the **Hugging Face Hub**. |
+| **Motion Warping** | Advanced **latent trajectory mapping** ensuring realistic subject motion and background preservation. |
+
+> [!NOTE]
+> ### Interactive Polish: The Visual Singularity
+> We have engineered a premium, logic-driven interface that exposes the complex text-to-video synthesis pipeline simply and elegantly. The visual language focuses on a modern gradient aesthetic, ensuring maximum focus on generative analysis.
+
+### Tech Stack
+- **Languages**: Python 3.8+
+- **Logic**: **Neural Pipelines** (Cross-frame Attention & Latent Warping)
+- **Frameworks**: **PyTorch** & **Diffusers**
+- **UI System**: Modern Design (Gradio & Custom CSS)
+- **Execution**: Local acceleration (CUDA) / CPU gracefully degraded fallback
+
+---
+
+<!-- STRUCTURE -->
+<a name="project-structure"></a>
+## Project Structure
+
+```python
+ZERO-SHOT-VIDEO-GENERATION/
+│
+├── Source Code/                     # Primary Application Layer
+│   ├── annotator/                   # Auxiliary Processing Modules
+│   ├── app.py                       # Main Gradio Studio Interface
+│   ├── app_text_to_video.py         # UI Components for Text2Video
+│   ├── config.py                    # Architectural Configurations
+│   ├── gradio_utils.py              # UI Helper Utilities
+│   ├── hf_utils.py                  # Hub Scraping & Model Loading
+│   ├── model.py                     # Neural Orchestration & Inference
+│   ├── text_to_video_pipeline.py    # Temporal Denoising & Warping Logic
+│   ├── utils.py                     # Processing & Attention Mechanisms
+│   ├── environment.yaml             # Conda Environment Config
+│   ├── requirements.txt             # Dependency Manifest
+│   └── style.css                    # Component Styling
+│
+├── .gitignore                       # Deployment Exclusions
+├── README.md                        # Project Entrance
+└── ZERO-SHOT-VIDEO-GENERATION.ipynb # Research Notebook
 ```
 
-### Step 2: Install Dependencies
-Navigate to the project directory and run:
+---
+
+<a name="results"></a>
+## Results
+
+<div align="center">
+
+<!-- Placeholder for future results/screenshots -->
+
+</div>
+
+---
+
+<!-- QUICK START -->
+<a name="quick-start"></a>
+## Quick Start
+
+### 1. Prerequisites
+- **Python 3.8+**: Required for runtime execution. [Download Python](https://www.python.org/downloads/)
+- **Git**: For version control and cloning. [Download Git](https://git-scm.com/downloads)
+- **CUDA Toolkit**: (Optional but highly recommended) For GPU acceleration.
+
+### 2. Installation & Setup
+
+#### Step 1: Clone the Repository
+Open your terminal and clone the repository:
 ```bash
+git clone https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION.git
+cd ZERO-SHOT-VIDEO-GENERATION
+```
+
+#### Step 2: Configure Virtual Environment
+Prepare an isolated environment to manage dependencies:
+
+**Windows (Command Prompt / PowerShell):**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**macOS / Linux (Terminal):**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+#### Step 3: Install Core Dependencies
+Navigate to the source directory and install the required libraries:
+```bash
+cd "Source Code"
 pip install -r requirements.txt
 ```
-This installs necessary libraries like `torch`, `numpy`, `opencv`, `gradio`, and `moviepy`.
 
-### Step 3: Starting the Project
-In the project directory, run:
+### 3. Execution
+
+#### A. Interactive Web Studio
+Launch the primary Gradio-based studio engine from the `Source Code` directory:
 ```bash
 python app.py
 ```
-This starts the server and initializes the Text2Video model.
+*Once initialized, navigate to the local URL provided in the terminal (typically `http://127.0.0.1:7860`).*
 
-## Usage
-
-### Step 4: Accessing the Local Server
-Copy the localhost link (typically `http://127.0.0.1:7860`) from the terminal into your web browser.
-
-### Step 5: Interacting with the Text2Video Model
-Enter the desired text into the model's interface on the server page to start video generation.
-
-### Step 6: Generating Video
-Trigger the model to process the text and generate the video.
-
-### Step 7: Viewing Results
-Review the generated video displayed on the webpage directly in the browser.
-
-## Conclusion
-Enjoy transforming text into videos with ease and efficiency! For further details, refer to the project documentation.
+#### B. Cloud Research Laboratory
+Execute the complete **Neural Video Synthesis Research** directly in the cloud.
+> [Launch Zero-Shot Video Generation on Jupyter/Colab](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/blob/main/ZERO-SHOT-VIDEO-GENERATION.ipynb)
 
 ---
 
-<p align="center"> <b> 👉🏻 Presented as a part of the 3rd Semester Project @ University of Windsor 👈🏻 <b> </p>
+<!-- USAGE GUIDELINES -->
+<a name="usage-guidelines"></a>
+## Usage Guidelines
 
-<p align="center"> <b> 👷 Project Authors: Amey Thakur, Jithin Gijo and Ritika Agarwal (Batch of 2024) <b> </p>
- 
-<p align="center"><a href='https://github.com/Amey-Thakur/MENG-COMPUTER-ENGINEERING', style='color: greenyellow;'> ✌🏻 Back To Engineering ✌🏻</p>
+This repository is openly shared to support learning and knowledge exchange across the academic community.
+
+**For Students**  
+Use this project as reference material for understanding **Neural Video Synthesis**, **Diffusion Models**, and **temporal latent interpolation**. The source code is explicitly annotated to facilitate self-paced learning and exploration of **Python-based generative deep learning pipelines**.
+
+**For Educators**  
+This project may serve as a practical lab example or supplementary teaching resource for **Machine Learning**, **Computer Vision**, and **Generative AI** courses. Attribution is appreciated when utilizing content.
+
+**For Researchers**  
+The documentation and architectural approach may provide insights into **academic project structuring**, **cross-frame attention mechanisms**, and **zero-shot temporal generation paradigms**.
+
+---
+
+<!-- LICENSE -->
+<a name="license"></a>
+## License
+
+This repository and all its creative and technical assets are made available under the **MIT License**.
+
+> [!NOTE]
+> **Summary**: You are free to share and adapt this content for any purpose, even commercially, as long as you provide appropriate attribution to the original authors.
+
+Copyright © 2023-2024 Amey Thakur, Jithin Gijo, Ritika Agarwal
+
+---
+
+<!-- ABOUT -->
+<a name="about-this-repository"></a>
+## About This Repository
+
+**Created & Maintained by**: [Amey Thakur](https://github.com/Amey-Thakur), Jithin Gijo, & Ritika Agarwal
+
+This project features **Zero-Shot Video Generation**, an advanced generative visual synthesis system. It represents a structured academic exploration into **Machine Learning** developed as part of the 3rd Semester Project (ELEC8900) at the **University of Windsor**.
+
+**Connect:** [GitHub](https://github.com/Amey-Thakur) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/amey-thakur) &nbsp;·&nbsp; [ORCID](https://orcid.org/0000-0001-5644-1575)
+
+### Acknowledgments
+
+Grateful acknowledgment to **Jithin Gijo** and **Ritika Agarwal** for their exceptional collaboration and partnership on this machine learning research. Their constant support, technical clarity, and dedication to software quality were instrumental in achieving the system's functional objectives. Learning alongside them was a transformative experience; their thoughtful approach to problem-solving and steady encouragement turned complex academic assignments into meaningful learning moments. This work reflects the growth and insights gained from our side-by-side academic journey. Thank you, Jithin and Ritika, for everything you shared and taught along the way.
+
+Special thanks to the research team behind **Text2Video-Zero** (Picsart AI Research, UT Austin, U of Oregon, UIUC) for the foundational research and open-source implementation, which served as the cornerstone for this project's technical architecture.
+
+---
+
+<div align="center">
+
+  [↑ Back to Top](#readme-top)
+
+  [Authors](#authors) &nbsp;·&nbsp; [Overview](#overview) &nbsp;·&nbsp; [Features](#features) &nbsp;·&nbsp; [Structure](#project-structure) &nbsp;·&nbsp; [Results](#results) &nbsp;·&nbsp; [Quick Start](#quick-start) &nbsp;·&nbsp; [Usage Guidelines](#usage-guidelines) &nbsp;·&nbsp; [License](#license) &nbsp;·&nbsp; [About](#about-this-repository) &nbsp;·&nbsp; [Acknowledgments](#acknowledgments)
+
+  <br>
+
+  🎥 **[Zero-Shot Video Generation](https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation)**
+
+  ---
+
+  ### 🎓 [Master of Engineering Repository](https://github.com/Amey-Thakur/MENG-COMPUTER-ENGINEERING)
+
+  **Master of Engineering (M.Eng) - University of Windsor**
+
+  *Semester-wise curriculum, laboratories, projects, and academic notes.*
+
+</div>

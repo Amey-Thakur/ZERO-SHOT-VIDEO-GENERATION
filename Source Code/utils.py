@@ -173,7 +173,9 @@ class CrossFrameAttnProcessor:
             attn,
             hidden_states,
             encoder_hidden_states=None,
-            attention_mask=None):
+            attention_mask=None,
+            *args,
+            **kwargs):
         batch_size, sequence_length, _ = hidden_states.shape
         attention_mask = attn.prepare_attention_mask(attention_mask, sequence_length, batch_size)
         query = attn.to_q(hidden_states)
@@ -181,7 +183,7 @@ class CrossFrameAttnProcessor:
         is_cross_attention = encoder_hidden_states is not None
         if encoder_hidden_states is None:
             encoder_hidden_states = hidden_states
-        elif attn.cross_attention_norm:
+        elif getattr(attn, 'norm_cross', None) is not None:
             encoder_hidden_states = attn.norm_cross(encoder_hidden_states)
         key = attn.to_k(encoder_hidden_states)
         value = attn.to_v(encoder_hidden_states)

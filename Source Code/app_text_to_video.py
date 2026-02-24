@@ -63,43 +63,50 @@ def create_demo(model: Model):
     # Instantiate the declarative layout constructor.
     with gr.Blocks() as demo:
         with gr.Row():
-            gr.Markdown('## Text2Video-Zero: Video Generation')
-        with gr.Row():
             gr.HTML(
                 """
-                <div style="text-align: left; auto;">
-                <h2 style="font-weight: 450; font-size: 1rem; margin: 0rem">
-                    Description: Instantly create videos using a text prompt or our sample examples.
-                </h3>
+                <div style="background: rgba(142,45,226,0.1); padding: 1.5rem; border-left: 5px solid #8E2DE2; border-radius: 10px; margin-bottom: 1.5rem;">
+                    <h2 style="font-weight: 700; font-size: 1.6rem; margin: 0; color: #4A00E0;">
+                        Text2Video-Zero Studio
+                    </h2>
+                    <p style="margin-top: 0.5rem; color: #555; font-size: 1rem; font-weight: 500;">
+                        Instantly synthesize dynamic, temporally consistent videos using a cinematic text prompt. Select a diffusion model, describe your scene, and generate.
+                    </p>
                 </div>
-                """)
+                """
+            )
 
-        with gr.Row():
-            with gr.Column():
+        with gr.Row(equal_height=False):
+            with gr.Column(scale=1, variant="panel"):
+                gr.Markdown("### ✨ Model & Concept Configuration")
                 # Configuration block controlling diffusion model weights and textual targets.
                 model_name = gr.Dropdown(
-                    label="Model",
+                    label="Diffusion Strategy (Model)",
                     choices=get_model_list(),
                     value="dreamlike-art/dreamlike-photoreal-2.0",
-
                 )
-                prompt = gr.Textbox(label='Prompt')
-                run_button = gr.Button(value='Run')
+                prompt = gr.Textbox(
+                    label='Cinematic Prompt', 
+                    placeholder="Describe the scene in detail (e.g. 'an astronaut waving the arm on the moon')...",
+                    lines=3
+                )
+                run_button = gr.Button(value='Generate Sequence 🎬', variant='primary', size="lg")
                 
                 # Expandable execution variables defining trajectory lengths (temporal depth).
-                with gr.Accordion('Advanced options', open=False):
+                with gr.Accordion('🛠️ Advanced Options', open=False):
                     
                     # Adapting video constraints algorithmically based on the execution domain constraints.
                     if on_huggingspace:
                         video_length = gr.Slider(
-                            label="Video length", minimum=8, maximum=16, step=1)
+                            label="Video Timeline (Frames)", minimum=8, maximum=16, step=1, value=8)
                     else:
                         video_length = gr.Number(
-                            label="Video length", value=8, precision=0)
+                            label="Video Timeline (Frames)", value=8, precision=0)
 
-            with gr.Column():
+            with gr.Column(scale=1):
                 # Instantiation of the rendering element to visualize synthesized structures.
-                result = gr.Video(label="Generated Video")
+                gr.Markdown("### 🎞️ Output Stream")
+                result = gr.Video(label="Synthesized Video Result", height=380)
 
         inputs = [
             prompt,

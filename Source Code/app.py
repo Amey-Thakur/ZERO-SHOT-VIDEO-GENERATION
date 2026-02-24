@@ -64,15 +64,16 @@ with gr.Blocks() as demo:
 
     gr.HTML(
         """
-        <div style="text-align: center; max-width: 1200px; margin: 20px auto;">
-        <h1 style="font-weight: 900; font-size: 3rem; margin: 0rem">
-            <a href="https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION" style="color:blue;">Zero-Shot Video Generation</a> 
-        </h1>
-        <h3>Original research and development of <a href="https://arxiv.org/abs/2303.13439">Text2Video-Zero</a> was conducted by the team at Picsart AI Research (PAIR), UT Austin, U of Oregon, and UIUC.
-        </h3>
-
+        <div style="background: linear-gradient(135deg, #4A00E0 0%, #8E2DE2 100%); padding: 3rem; border-radius: 20px; text-align: center; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h1 style="color: white; font-size: 3.5rem; font-weight: 800; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); letter-spacing: -1px;">
+                🎥 Zero-Shot Video Generation
+            </h1>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-top: 1rem; font-weight: 500;">
+                Original research by Picsart AI Research (PAIR), UT Austin, U of Oregon, and UIUC.
+            </p>
         </div>
-        """)
+        """
+    )
 
     with gr.Tab('Zero-Shot Text2Video'):
         # Invoke the pre-defined layout specific to the Text-to-Video generative logic, passing 
@@ -84,10 +85,15 @@ with gr.Blocks() as demo:
 # Deploys the constructed graphical interface. Configures queuing mechanisms intrinsically to 
 # prevent execution thread over-saturation during concurrent generation requests.
 if on_huggingspace:
-    demo.queue().launch(debug=True)
+    demo.queue().launch(
+        debug=True,
+        theme=gr.themes.Soft(primary_hue="blue", secondary_hue="indigo")
+    )
 else:
     _, _, link = demo.queue().launch(
         allowed_paths=['temporal'], 
         share=args.public_access,
-        css='style.css')
+        css='style.css',
+        theme=gr.themes.Soft(primary_hue="blue", secondary_hue="indigo")
+    )
     print(link)

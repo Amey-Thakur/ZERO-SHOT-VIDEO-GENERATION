@@ -51,17 +51,17 @@
 <a name="overview"></a>
 ## Overview
 
-**Zero-Shot Video Generation** is an advanced neural synthesis framework designed to transform textual descriptions into high-fidelity, temporally consistent video sequences. By leveraging the **SV2TTS**-inspired paradigm of cross-domain transfer—repurposing pre-trained **Latent Diffusion Models (LDMs)**—this project enables dynamic motion synthesis without requiring specialized video-based training datasets.
+**Zero-Shot Video Generation** is an advanced neural synthesis framework designed to transform textual descriptions into high-fidelity, temporally consistent video sequences. By leveraging the **SV2TTS**-inspired paradigm of cross-domain transfer (repurposing pre-trained **Latent Diffusion Models (LDMs)**), this project enables dynamic motion synthesis without requiring specialized video-based training datasets.
 
 The core architecture implements a specialized inference-time logic that constrains the generative process across a discrete temporal axis. This addresses the fundamental challenge of **spatial-temporal manifold consistency**, ensuring that a sequence of independent latent samples converges into a coherent motion trajectory that mirrors the nuanced semantics of the input prompt.
 
 > [!IMPORTANT]
-> ### Research Attribution
-> This implementation is computationally inspired by the foundational methodology of **[Text2Video-Zero](https://arxiv.org/abs/2303.13439)**. We acknowledge the primary contributions of **Picsart AI Research (PAIR)**, **UT Austin**, **U of Oregon**, and **UIUC** for establishing the zero-shot video synthesis paradigm.
+> ### Attribution
+> This project builds upon the foundational research and implementation of the **[Text2Video-Zero](https://arxiv.org/abs/2303.13439)** repository by **[Picsart AI Research (PAIR)](https://github.com/picsart-ai-research)**.
 
 > [!NOTE]
 > ### 🎥 Defining Zero-Shot Video Synthesis
-> In the context of generative AI, **Zero-Shot Video Synthesis** refers to the production of video content where the model has not been explicitly trained on motion data. The system operates by injecting **temporal structural priors**—specifically **cross-frame attention** and **latent trajectory warping**—into a pre-trained image generator. This method eliminates the prohibitive computational and data costs of traditional video models while preserving the high-fidelity stylistic capabilities of large-scale diffusion backbones.
+> In the context of generative AI, **Zero-Shot Video Synthesis** refers to the production of video content where the model has not been explicitly trained on motion data. The system operates by injecting **temporal structural priors**, specifically **cross-frame attention** and **latent trajectory warping**, into a pre-trained image generator. This method eliminates the prohibitive computational and data costs of traditional video models while preserving the high-fidelity stylistic capabilities of large-scale diffusion backbones.
 
 The repository serves as a comprehensive technical case study into **Generative Machine Learning**, **Latent Space Dynamics**, and **Neural Attention Modulation**. It bridges the gap between theoretical research and practical deployment through an optimized **Gradio-based interactive studio**, allowing for high-performance experimentation with zero-shot motion synthesis heuristics.
 

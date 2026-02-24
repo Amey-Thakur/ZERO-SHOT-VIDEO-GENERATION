@@ -8,7 +8,7 @@
   [![Technology](https://img.shields.io/badge/Technology-Python%20%7C%20Deep%20Learning-blueviolet)](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION)
   [![Developed by Amey Thakur](https://img.shields.io/badge/Developed%20by-Amey%20Thakur-blue.svg)](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION)
 
-  An innovative neural synthesis studio for transforming text into dynamic, temporally consistent video content utilizing advanced latent diffusion methodologies.
+  A zero-shot neural synthesis studio leveraging latent diffusion models and cross-frame attention to synthesize temporally consistent video sequences directly from unconstrained textual prompts.
 
   **[Source Code](Source%20Code/)** &nbsp;·&nbsp; **[Project Report](https://github.com/Amey-Thakur/MACHINE--LEARNING/blob/main/ML%20Project/Zero-Shot%20Video%20Generation%20Project%20Report.pdf)** &nbsp;·&nbsp; **[Video Demo](https://youtu.be/za9hId6UPoY)** &nbsp;·&nbsp; **[Live Demo](https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation)**
 

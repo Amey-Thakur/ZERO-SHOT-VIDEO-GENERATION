@@ -40,10 +40,10 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         tokenizer: CLIPTokenizer,
         unet: UNet2DConditionModel,
         scheduler: KarrasDiffusionSchedulers,
-        safety_checker: StableDiffusionSafetyChecker,
-        feature_extractor: CLIPImageProcessor,
+        safety_checker: Optional[StableDiffusionSafetyChecker] = None,
+        feature_extractor: Optional[CLIPImageProcessor] = None,
         image_encoder: Optional[torch.nn.Module] = None,
-        requires_safety_checker: bool = True,
+        requires_safety_checker: bool = False,
         **kwargs,
     ):
         super().__init__(

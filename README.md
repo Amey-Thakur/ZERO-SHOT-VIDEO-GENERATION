@@ -193,7 +193,7 @@ ZERO-SHOT-VIDEO-GENERATION/
   <br><br>
   <video src="https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/raw/main/screenshots/zero_shot_video_output.mp4" width="90%" controls loop autoplay muted></video>
   <br><br>
-  <a href="screenshots/zero_shot_video_output.mp4"><b>Download Original MP4</b></a>
+  <a href="https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/raw/main/screenshots/zero_shot_video_output.mp4" download><b>Download Original MP4</b></a>
 </div>
 
 ---

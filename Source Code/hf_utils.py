@@ -53,15 +53,18 @@ def data_scraping(url_list):
     """
     model_list = []
     for url in url_list:
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, "html.parser")
-        # Target the specific tailwind-defined grid structure hosting the model cards.
-        div_class = 'grid grid-cols-1 gap-5 2xl:grid-cols-2'
-        div = soup.find('div', {'class': div_class})
-        # Extract associative link coordinates (hrefs) representing the model paths.
-        if div:
-            for a in div.find_all('a', href=True):
-                model_list.append(a['href'])
+        try:
+            response = requests.get(url, timeout=5)
+            soup = BeautifulSoup(response.text, "html.parser")
+            # Target the specific tailwind-defined grid structure hosting the model cards.
+            div_class = 'grid grid-cols-1 gap-5 2xl:grid-cols-2'
+            div = soup.find('div', {'class': div_class})
+            # Extract associative link coordinates (hrefs) representing the model paths.
+            if div:
+                for a in div.find_all('a', href=True):
+                    model_list.append(a['href'])
+        except Exception as e:
+            print(f"Request to {url} failed: {e}")
     return model_list
 
 

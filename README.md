@@ -191,9 +191,9 @@ ZERO-SHOT-VIDEO-GENERATION/
   <br><br>
   <img src="screenshots/zero_shot_video_output.gif" alt="Zero-Shot Video GIF" width="90%">
   <br><br>
-  <video src="screenshots/zero_shot_video_output.mp4" width="90%" controls loop autoplay muted></video>
-  <br><br>
-  <a href="screenshots/zero_shot_video_output.mp4"><b>Download Original MP4 Signal</b></a>
+  <a href="screenshots/zero_shot_video_output.mp4?raw=true" download>
+    <img src="https://img.shields.io/badge/DOWNLOAD-ORIGINAL_MP4-blue?style=for-the-badge&logo=github" alt="Download MP4">
+  </a>
 </div>
 
 ---

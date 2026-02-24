@@ -23,14 +23,16 @@ def data_scraping(url_list):
 
 
 def get_model_list():
-    model_list = data_scraping(model_url_list())
-    for i in range(len(model_list)):
-        model_list[i] = model_list[i][1:]
-
     best_model_list = [
         "dreamlike-art/dreamlike-photoreal-2.0",
-        
     ]
-
-    model_list = best_model_list + model_list
+    try:
+        model_list = data_scraping(model_url_list())
+        for i in range(len(model_list)):
+            model_list[i] = model_list[i][1:]
+        model_list = best_model_list + model_list
+    except Exception as e:
+        print(f"Warning: Could not fetch model list from HuggingFace (offline mode?). Using default model only. Error: {e}")
+        model_list = best_model_list
+        
     return model_list

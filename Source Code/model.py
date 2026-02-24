@@ -1,5 +1,6 @@
 from enum import Enum
 import gc
+import os
 import numpy as np
 import tomesd
 import torch
@@ -54,9 +55,24 @@ class Model:
             self.pipe = None
         torch.cuda.empty_cache()
         gc.collect()
-        safety_checker = kwargs.pop('safety_checker', None)
+
+        # Check for local safety checker/feature extractor
+        models_dir = os.path.join(os.getcwd(), "models")
+        local_safety_path = os.path.join(models_dir, "stable-diffusion-safety-checker")
+        local_clip_path = os.path.join(models_dir, "clip-vit-large-patch14")
+
+        if os.path.exists(local_safety_path) and 'safety_checker' not in kwargs:
+             print(f"Loading local safety checker from {local_safety_path}")
+             from diffusers.pipelines.stable_diffusion import StableDiffusionSafetyChecker
+             kwargs['safety_checker'] = StableDiffusionSafetyChecker.from_pretrained(local_safety_path).to(self.device).to(self.dtype)
+        
+        if os.path.exists(local_clip_path) and 'feature_extractor' not in kwargs:
+             print(f"Loading local feature extractor from {local_clip_path}")
+             from transformers import CLIPImageProcessor
+             kwargs['feature_extractor'] = CLIPImageProcessor.from_pretrained(local_clip_path)
+
         self.pipe = self.pipe_dict[model_type].from_pretrained(
-            model_id, safety_checker=safety_checker, **kwargs).to(self.device).to(self.dtype)
+            model_id, **kwargs).to(self.device).to(self.dtype)
         self.model_type = model_type
         self.model_name = model_id
 
@@ -81,6 +97,36 @@ class Model:
                          generator=self.generator,
                          **kwargs)
 
+    def inference(self, **kwargs):
+        if not hasattr(self, "pipe") or self.pipe is None:
+            return
+
+        split_to_chunks = kwargs.pop('split_to_chunks', False)
+        chunk_size = kwargs.pop('chunk_size', 8)
+        video_length = kwargs.get('video_length', 8)
+
+        if split_to_chunks:
+            # Handle chunking logic
+            import math
+            num_chunks = math.ceil(video_length / chunk_size)
+            all_frames = []
+            for i in range(num_chunks):
+                start_idx = i * chunk_size
+                end_idx = min((i + 1) * chunk_size, video_length)
+                frame_ids = list(range(start_idx, end_idx))
+                chunk_result = self.inference_chunk(frame_ids, **kwargs)
+                all_frames.append(chunk_result.images)
+            
+            # Combine frames
+            import numpy as np
+            if isinstance(all_frames[0], np.ndarray):
+                combined = np.concatenate(all_frames, axis=0)
+            else:
+                combined = [img for chunk in all_frames for img in chunk]
+            return combined
+        else:
+            return self.pipe(**kwargs).images
+
 
     def process_text2video(self,
                            prompt,
@@ -104,11 +150,20 @@ class Model:
                            path=None):
         print("Module Text2Video")
         if self.model_type != ModelType.Text2Video or model_name != self.model_name:
-            print("Model update")
+            print(f"Model update to {model_name}")
+            
+            # Check for local model first
+            local_model_path = os.path.join(os.getcwd(), "models", model_name.split('/')[-1])
+            load_path = local_model_path if os.path.exists(local_model_path) else model_name
+            
+            if os.path.exists(local_model_path):
+                print(f"Using local model weights from {local_model_path}")
+            
             unet = UNet2DConditionModel.from_pretrained(
-                model_name, subfolder="unet")
+                load_path, subfolder="unet")
             self.set_model(ModelType.Text2Video,
-                           model_id=model_name, unet=unet)
+                           model_id=load_path, unet=unet)
+            self.model_name = model_name # Keep the original name for state tracking
             self.pipe.scheduler = DDIMScheduler.from_config(
                 self.pipe.scheduler.config)
             if use_cf_attn:

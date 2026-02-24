@@ -109,6 +109,17 @@ def create_gif(frames, fps, rescale=False, path=None, watermark=None):
     imageio.mimsave(path, outputs, fps=fps)
     return path
 
+def add_watermark(image, watermark_path):
+    if watermark_path is None or not os.path.exists(watermark_path):
+        return image
+    
+    watermark = Image.open(watermark_path).convert("RGBA")
+    img = Image.fromarray(image).convert("RGBA")
+    
+    # Simple watermark placement (bottom right)
+    img.paste(watermark, (img.width - watermark.width - 10, img.height - watermark.height - 10), watermark)
+    return np.array(img.convert("RGB"))
+
 def prepare_video(video_path:str, resolution:int, device, dtype, normalize=True, start_t:float=0, end_t:float=-1, output_fps:int=-1):
     vr = decord.VideoReader(video_path)
     initial_fps = vr.get_avg_fps()

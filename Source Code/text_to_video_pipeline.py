@@ -7,7 +7,7 @@ from diffusers.utils import deprecate, logging, BaseOutput
 from einops import rearrange, repeat
 from torch.nn.functional import grid_sample
 import torchvision.transforms as T
-from transformers import CLIPFeatureExtractor, CLIPTextModel, CLIPTokenizer
+from transformers import CLIPImageProcessor, CLIPTextModel, CLIPTokenizer
 from diffusers.models import AutoencoderKL, UNet2DConditionModel
 from diffusers.schedulers import KarrasDiffusionSchedulers
 from diffusers.pipelines.stable_diffusion import StableDiffusionSafetyChecker
@@ -41,7 +41,7 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         unet: UNet2DConditionModel,
         scheduler: KarrasDiffusionSchedulers,
         safety_checker: StableDiffusionSafetyChecker,
-        feature_extractor: CLIPFeatureExtractor,
+        feature_extractor: CLIPImageProcessor,
         requires_safety_checker: bool = True,
     ):
         super().__init__(vae, text_encoder, tokenizer, unet, scheduler,
@@ -415,8 +415,12 @@ class TextToVideoPipeline(StableDiffusionPipeline):
                     z0_f = torch.round(
                         z0_f * 255).cpu().numpy().astype(np.uint8)
                     # apply SOD detection
-                    m_f = torch.tensor(self.sod_model.process_data(
-                        z0_f), device=x0.device).to(x0.dtype)
+                    if hasattr(self, 'sod_model') and self.sod_model is not None:
+                        m_f = torch.tensor(self.sod_model.process_data(
+                            z0_f), device=x0.device).to(x0.dtype)
+                    else:
+                        print("Warning: sod_model not found. Skipping smooth background detection for this frame.")
+                        m_f = torch.zeros((h, w), device=x0.device).to(x0.dtype)
                     mask = T.Resize(
                         size=(h, w), interpolation=T.InterpolationMode.NEAREST)(m_f[None])
                     kernel = torch.ones(5, 5, device=x0.device, dtype=x0.dtype)

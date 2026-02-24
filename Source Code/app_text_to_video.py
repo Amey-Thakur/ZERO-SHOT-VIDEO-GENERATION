@@ -37,12 +37,12 @@ def create_demo(model: Model):
             with gr.Column():
                 model_name = gr.Dropdown(
                     label="Model",
-                    
+                    choices=get_model_list(),
                     value="dreamlike-art/dreamlike-photoreal-2.0",
 
                 )
                 prompt = gr.Textbox(label='Prompt')
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 with gr.Accordion('Advanced options', open=False):
                     
 

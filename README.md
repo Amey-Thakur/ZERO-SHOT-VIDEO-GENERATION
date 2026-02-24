@@ -241,12 +241,12 @@ The documentation and architectural approach may provide insights into **academi
 <a name="license"></a>
 ## License
 
-This repository and all its creative and technical assets are made available under the **MIT License**.
+This repository and all linked academic content are made available under the **MIT License**. See the [LICENSE](LICENSE) file for complete terms.
 
 > [!NOTE]
-> **Summary**: You are free to share and adapt this content for any purpose, even commercially, as long as you provide appropriate attribution to the original authors.
+> **Summary**: You are free to share and adapt this content for any purpose, even commercially, as long as you provide appropriate attribution to the original author.
 
-Copyright © 2023-2024 Amey Thakur, Jithin Gijo, Ritika Agarwal
+Copyright © 2023 Amey Thakur
 
 ---
 
@@ -254,7 +254,7 @@ Copyright © 2023-2024 Amey Thakur, Jithin Gijo, Ritika Agarwal
 <a name="about-this-repository"></a>
 ## About This Repository
 
-**Created & Maintained by**: [Amey Thakur](https://github.com/Amey-Thakur), Jithin Gijo, & Ritika Agarwal
+**Created & Maintained by**: [Amey Thakur](https://github.com/Amey-Thakur)
 
 This project features **Zero-Shot Video Generation**, an advanced generative visual synthesis system. It represents a structured academic exploration into **Machine Learning** developed as part of the 3rd Semester Project (ELEC8900) at the **University of Windsor**.
 

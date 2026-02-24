@@ -134,6 +134,13 @@ ZERO-SHOT-VIDEO-GENERATION/
 │   ├── requirements.txt             # Dependency Manifest
 │   └── style.css                    # Component Styling
 │
+├── screenshots/                     # Visual Synthesis Gallery
+│   ├── 01_studio_interface.png      # Application UI
+│   ├── 02_model_configuration.png   # Parameter Setup
+│   ├── 03_neural_processing.png     # Inference Visualization
+│   ├── 04_generation_results.png    # Output Verification
+│   └── zero_shot_video_output.mp4   # Sample Generated Video
+│
 ├── .gitattributes                   # Signal Normalization
 ├── .gitignore                       # Deployment Exclusions
 ├── SECURITY.md                      # Security Protocols
@@ -151,7 +158,27 @@ ZERO-SHOT-VIDEO-GENERATION/
 
 <div align="center">
 
-<!-- Placeholder for future results/screenshots -->
+### Visual Synthesis Gallery
+
+![Studio Interface](screenshots/01_studio_interface.png)
+**Interactive Neural Studio**: The primary application interface for orchestrating zero-shot video synthesis sessions.
+
+![Model Configuration](screenshots/02_model_configuration.png)
+**Synthesis Orchestration**: Configuring latent diffusion pipelines and temporal consistency heuristics for motion generation.
+
+![Neural Processing](screenshots/03_neural_processing.png)
+**Latent Trajectory Inference**: Real-time visualization of the denoising process across the temporal manifold.
+
+![Generation Results](screenshots/04_generation_results.png)
+**Temporal Convergence**: High-fidelity video sequence synthesis with verified spatial-temporal consistency.
+
+### Generative Output
+
+<video src="screenshots/zero_shot_video_output.mp4" width="100%" controls loop autoplay muted></video>
+
+*Generated Result: Neural Motion Sequence (Zero-Shot Synthesis)*
+
+[Download Original MP4](screenshots/zero_shot_video_output.mp4)
 
 </div>
 

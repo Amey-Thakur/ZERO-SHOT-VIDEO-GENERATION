@@ -253,21 +253,25 @@ Copyright © 2023 Amey Thakur
 <!-- ABOUT -->
 <a name="about-this-repository"></a>
 ## About This Repository
+**Created & Maintained by**: [Amey Thakur](https://github.com/Amey-Thakur)  
+**Academic Journey**: Master of Engineering in Computer Engineering (2023-2024)  
+**Course**: [ELEC 8900 · Machine Learning](https://github.com/Amey-Thakur/MACHINE--LEARNING)  
+**Institution**: [University of Windsor](https://www.uwindsor.ca/), Windsor, Ontario  
+**Faculty**: [Faculty of Engineering](https://www.uwindsor.ca/engineering/)
 
-**Created & Maintained by**: [Amey Thakur](https://github.com/Amey-Thakur)
-
-This project features **Zero-Shot Video Generation**, an advanced generative visual synthesis system. It represents a structured academic exploration into **Machine Learning** developed as part of the 3rd Semester Project (ELEC8900) at the **University of Windsor**.
+This project features **Zero-Shot Video Generation**, an advanced generative visual synthesis system designed to produce temporally consistent motion sequences from textual prompts. It represents a structured academic exploration into the frontiers of deep learning and latent space dynamics developed as part of the 3rd Semester Project at the University of Windsor.
 
 **Connect:** [GitHub](https://github.com/Amey-Thakur) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/amey-thakur) &nbsp;·&nbsp; [ORCID](https://orcid.org/0000-0001-5644-1575)
 
 ### Acknowledgments
 
-Grateful acknowledgment to **Jithin Gijo** and **Ritika Agarwal** for their exceptional collaboration and partnership on this machine learning research. Their constant support, technical clarity, and dedication to software quality were instrumental in achieving the system's functional objectives. Learning alongside them was a transformative experience; their thoughtful approach to problem-solving and steady encouragement turned complex academic assignments into meaningful learning moments. This work reflects the growth and insights gained from our side-by-side academic journey. Thank you, Jithin and Ritika, for everything you shared and taught along the way.
+Grateful acknowledgment to my **Major Project** teammates, **Jithin Gijo** and **Ritika Agarwal**, for their collaborative excellence and shared commitment throughout the semester. Our collective efforts in synthesizing complex datasets, developing rigorous technical architectures, and authoring comprehensive engineering reports were fundamental to the successful realization of our objectives. This partnership not only strengthened the analytical depth of our shared deliverables but also provided invaluable insights into the dynamics of high-performance engineering teamwork.
+
+Grateful acknowledgment to **Jason Horn**, **[Writing Support Desk](https://github.com/Amey-Thakur/WRITING-SUPPORT)**, **University of Windsor**, for his distinguished mentorship and scholarly guidance. His analytical feedback and methodological rigor were instrumental in refining the intellectual depth and professional caliber of my academic work. His dedication stands as a testament to the pursuit of academic excellence and professional integrity.
 
 Special thanks to the research team behind **Text2Video-Zero** (Picsart AI Research, UT Austin, U of Oregon, UIUC) for the foundational research and open-source implementation, which served as the cornerstone for this project's technical architecture.
 
----
-
+<!-- FOOTER SECTION -->
 <div align="center">
 
   [↑ Back to Top](#readme-top)
@@ -276,13 +280,17 @@ Special thanks to the research team behind **Text2Video-Zero** (Picsart AI Resea
 
   <br>
 
-  🎥 **[Zero-Shot Video Generation](https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation)**
+  🧠 **[Machine Learning Repository](https://github.com/Amey-Thakur/MACHINE--LEARNING)** &nbsp;·&nbsp; 🎥 **[Zero-Shot Video Generation](https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation)**
 
   ---
 
-  ### 🎓 [Master of Engineering Repository](https://github.com/Amey-Thakur/MENG-COMPUTER-ENGINEERING)
+  #### Presented as part of the 3rd Semester Project @ University of Windsor
 
-  **Master of Engineering (M.Eng) - University of Windsor**
+  ---
+
+  ### 🎓 [MEng Computer Engineering Repository](https://github.com/Amey-Thakur/MENG-COMPUTER-ENGINEERING)
+
+  **Computer Engineering (M.Eng.) - University of Windsor**
 
   *Semester-wise curriculum, laboratories, projects, and academic notes.*
 

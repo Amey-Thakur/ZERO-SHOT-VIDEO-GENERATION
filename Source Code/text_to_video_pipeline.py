@@ -40,11 +40,10 @@ class TextToVideoPipeline(StableDiffusionPipeline):
         tokenizer: CLIPTokenizer,
         unet: UNet2DConditionModel,
         scheduler: KarrasDiffusionSchedulers,
-        safety_checker: Optional[StableDiffusionSafetyChecker] = None,
-        feature_extractor: Optional[CLIPImageProcessor] = None,
+        safety_checker: StableDiffusionSafetyChecker,
+        feature_extractor: CLIPImageProcessor,
         image_encoder: Optional[torch.nn.Module] = None,
-        requires_safety_checker: bool = False,
-        **kwargs,
+        requires_safety_checker: bool = True,
     ):
         super().__init__(
             vae=vae,
@@ -56,7 +55,6 @@ class TextToVideoPipeline(StableDiffusionPipeline):
             feature_extractor=feature_extractor,
             image_encoder=image_encoder,
             requires_safety_checker=requires_safety_checker,
-            **kwargs,
         )
 
     def DDPM_forward(self, x0, t0, tMax, generator, device, shape, text_embeddings):

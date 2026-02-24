@@ -6,7 +6,7 @@
   [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
   ![Status](https://img.shields.io/badge/Status-Completed-success)
   [![Technology](https://img.shields.io/badge/Technology-Python%20%7C%20Deep%20Learning-blueviolet)](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION)
-  [![Developed by Amey Thakur, Jithin Gijo & Ritika Agarwal](https://img.shields.io/badge/Developed%20by-Amey%20Thakur,%20Jithin%20Gijo%20%26%20Ritika%20Agarwal-blue.svg)](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION)
+  [![Developed by Amey Thakur](https://img.shields.io/badge/Developed%20by-Amey%20Thakur-blue.svg)](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION)
 
   An innovative neural synthesis platform for transforming text into dynamic, temporally consistent video content utilizing advanced latent diffusion methodologies.
 

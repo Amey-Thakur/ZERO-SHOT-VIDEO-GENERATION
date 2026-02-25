@@ -253,7 +253,7 @@ python app.py
 >
 > Experience the interactive **Zero-Shot Video Generation** environment directly in your browser through the working **Hugging Face Space**. This platform features a **Latent Diffusion Model (LDM)** integrated with a **cross-frame attention** architecture to synthesize continuous motion, providing a visual demonstration of spatial-temporal interpolation and generative sequence boundaries.
 >
-> **[Launch Studio on Hugging Face](https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation)**
+> **[Launch Zero-Shot Video Studio on Hugging Face](https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation)**
 
 #### B. Research & Automation Studio
 

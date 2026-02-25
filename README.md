@@ -264,7 +264,7 @@ Execute the complete **Neural Video Synthesis Research** directly in the cloud. 
 >
 > Execute the complete **Neural Video Synthesis Research** directly in the cloud. This interactive **Google Colab Notebook** provides a zero-setup environment for orchestrating neural text-to-video synthesis, offering a scholarly gateway to the underlying Python-based latent diffusion and cross-frame attention architecture.
 >
-> [Launch Zero-Shot Video Studio on Google Colab](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/blob/main/ZERO-SHOT-VIDEO-GENERATION.ipynb)
+> **[Launch Zero-Shot Video Studio on Google Colab](https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION/blob/main/ZERO-SHOT-VIDEO-GENERATION.ipynb)**
 
 ---
 

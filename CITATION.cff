@@ -8,3 +8,7 @@ title: "ZERO-SHOT-VIDEO-GENERATION"
 version: 1.0.0
 date-released: 2023-11-22
 url: "https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION"
+identifiers:
+  - type: other
+    value: "2024-03-14"
+    description: "Date this repository was created on GitHub."

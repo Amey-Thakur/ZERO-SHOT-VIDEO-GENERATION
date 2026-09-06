@@ -1,0 +1,34 @@
+# Zero-Shot Video Generation
+
+> 🎥 Zero-Shot Video Generation – A neural video synthesis studio powered by
+> latent diffusion and cross-frame attention.
+
+Author: Amey Thakur, ORCID 0000-0001-5644-1575
+Institution: University of Windsor
+Programme: M.Eng Computer Engineering, Semester III
+Licence: CC BY 4.0, attribution required
+Repository created: 14 March 2024
+Work dated: 22 November 2023
+
+## What is in this repository
+
+- ML Project, 19 files
+- Source Code, 358 files
+- docs, 1 file
+- screenshots, 6 files
+- ZERO-SHOT-VIDEO-GENERATION.ipynb
+
+## Subject terms
+
+computer-engineering, generative-ai, jupyter-notebook, latent-diffusion,
+machine-learning, meng, meng-ece, python, stable-diffusion, t2v,
+text-to-video, text-to-video-generation, university-of-windsor, uwindsor,
+zero-shot-learning, zero-shot-video-generation
+
+## Where this sits
+
+- This repository: https://github.com/Amey-Thakur/ZERO-SHOT-VIDEO-GENERATION
+- Degree index, every subject and project: https://github.com/Amey-Thakur/MENG-COMPUTER-ENGINEERING
+- Project page: https://huggingface.co/spaces/ameythakur/Zero-Shot-Video-Generation
+- Author: https://github.com/Amey-Thakur
+- Research notes and reflections: https://amey-thakur.github.io/
